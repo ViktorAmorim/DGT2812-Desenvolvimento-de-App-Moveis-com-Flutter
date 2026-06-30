@@ -42,3 +42,10 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Flutter generated (safe additions)
+**/generated_*/
+**/ephemeral/
+**/linux/flutter/
+**/windows/flutter/
+**/macos/flutter/
