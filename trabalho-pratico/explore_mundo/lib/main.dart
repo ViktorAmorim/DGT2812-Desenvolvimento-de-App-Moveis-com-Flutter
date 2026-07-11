@@ -11,13 +11,13 @@ class MyApp extends StatelessWidget {
       title: 'Explore Mundo',
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Flutter layout demo'),
+          title: const Text('Explore Mundo'),
         ),
-        body: Column(
+        body: ListView(
           children: [
             _buildImageSection(),
             _buildTitleSection(),
-            _buildButtonSection(),
+            _buildButtonSection(context),
             _buildTextSection(),
           ],
         ),
@@ -27,8 +27,8 @@ class MyApp extends StatelessWidget {
 }
 
 Widget _buildImageSection() {
-  return Image.network(
-    'https://upload.wikimedia.org/wikipedia/commons/0/0d/Oeschinen_Lake%2C_Kandersteg%2C_Switzerland_%28Unsplash%29.jpg',
+  return Image.asset(
+    'images/lake.png',
     width: double.infinity,
     height: 240,
     fit: BoxFit.cover,
@@ -37,7 +37,7 @@ Widget _buildImageSection() {
 
 Widget _buildTitleSection() {
   return const Padding(
-      padding: EdgeInsets.all(24),
+      padding: EdgeInsets.all(32),
       child: Row(
         children: [
           Expanded(
@@ -45,7 +45,7 @@ Widget _buildTitleSection() {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Oeshchinen Lake Campground',
+                  'Oeschinen Lake Campground',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
@@ -72,30 +72,31 @@ Widget _buildTitleSection() {
       ));
 }
 
-Widget _buildButtonSection() {
+Widget _buildButtonSection(BuildContext context) {
+  Color color = Theme.of(context).primaryColor;
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 16),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _buildButton(Icons.call, 'CALL'),
-        _buildButton(Icons.near_me, 'ROUTE'),
-        _buildButton(Icons.share, 'SHARE'),
+        _buildButton(Icons.call, 'CALL', color),
+        _buildButton(Icons.near_me, 'ROUTE', color),
+        _buildButton(Icons.share, 'SHARE', color),
       ],
     ),
   );
 }
 
-Widget _buildButton(IconData icon, String label) {
+Widget _buildButton(IconData icon, String label, Color color) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Icon(icon, color: Colors.blue),
+      Icon(icon, color: color),
       const SizedBox(height: 8),
       Text(
         label,
-        style: const TextStyle(
-          color: Colors.blue,
+        style: TextStyle(
+          color: color,
           fontSize: 12,
         ),
       ),
@@ -104,5 +105,11 @@ Widget _buildButton(IconData icon, String label) {
 }
 
 Widget _buildTextSection() {
-  return const SizedBox();
+  return const Padding(
+    padding: EdgeInsets.all(24),
+    child: Text(
+      'O Lago Oeschinen fica aos pés do Blüemlisalp nos Alpes Berneses. Situado a 1.578 metros acima do nível do mar, é um dos lagos alpinos mais amplos. Um passeio de teleférico a partir de Kandersteg, seguido por meia hora de caminhada por pastagens e floresta de pinheiros, leva você ao lago, que aquece até 20 graus Celsius no verão. As atividades desfrutadas aqui incluem remo e andar no tobogã de verão.',
+      textAlign: TextAlign.justify,
+    ),
+  );
 }
